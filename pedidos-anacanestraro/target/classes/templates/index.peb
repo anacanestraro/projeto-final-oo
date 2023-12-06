@@ -1,0 +1,9 @@
+{% extends "templates/base.peb" %}
+
+{% block content %}
+    <h1>Meus pedidos!!!</h1>
+    <a href="/add">Cadastrar Pedido</a>
+    <a href="/list">Listar Pedidos</a>
+
+    <a href="/listBebidas">Listar Bebidas</a>
+{% endblock %}    

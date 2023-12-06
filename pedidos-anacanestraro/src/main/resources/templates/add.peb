@@ -1,0 +1,17 @@
+{% extends "templates/base.peb" %}
+{% block content %}
+{% if resultado != null %}
+    {{resultado.getMsg}}
+{% endif %}
+
+<h1>Adicionar pedido</h1>
+<form method="post" action="/add">
+    <label for="bebida">Bebida:</label>
+    <input type="text" id="bebida" name="bebida" value="{{bebida}}"/><br />
+    <label for="observacao">Observação:</label>
+    <input type="text" id="observacao" name="observacao" value="{{observacao}}"/><br />
+
+    
+    <input type="submit" />
+</form>
+{% endblock %}

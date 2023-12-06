@@ -1,0 +1,16 @@
+{% extends "templates/base.peb" %}
+
+{% block content %}
+
+{% if resultado.foiErro %}
+<h1> {{ resultado.getMsg }}</h1>
+{% else %}
+    <ul>
+    {% for bebida in lista %}
+        <li>{{bebida.name}} {{bebida.valor}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+{% endblock %}
