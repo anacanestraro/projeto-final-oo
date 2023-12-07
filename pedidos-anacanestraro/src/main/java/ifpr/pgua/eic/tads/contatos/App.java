@@ -1,5 +1,6 @@
 package ifpr.pgua.eic.tads.contatos;
 
+import ifpr.pgua.eic.tads.contatos.controllers.AddBebidaCrontroller;
 import ifpr.pgua.eic.tads.contatos.controllers.AddPedidoController;
 import ifpr.pgua.eic.tads.contatos.controllers.IndexController;
 import ifpr.pgua.eic.tads.contatos.controllers.ListBebidasController;
@@ -28,6 +29,7 @@ public class App
 
         BebidaDAO bebidaDAO = new JDBCBebidaDAO(FabricaConexoes.getInstance());
         BebidaRepository bebidaRepository = new ImpBebidaRepository(bebidaDAO);
+        AddBebidaCrontroller addBebidaController = new AddBebidaCrontroller(bebidaRepository);
 
         PedidoDAO pedidoDAO = new JDBCPedidoDAO(FabricaConexoes.getInstance());
         PedidoRepository pedidoRepository = new ImpPedidoRepository(pedidoDAO, bebidaDAO);
@@ -44,7 +46,7 @@ public class App
         app.get("/list", listPedidosController.get);
 
         app.get("/addBebida", addBebidaController.get);
-        app.post("/addBebida", addBebidaController);
+        app.post("/addBebida", addBebidaController.post);
         app.get("/listBebidas", listBebidasController.get);
 
         

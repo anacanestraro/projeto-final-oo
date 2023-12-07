@@ -5,6 +5,11 @@ public class Bebida {
     private String nome;
     private double valor;
 
+    public Bebida(String nome, double valor) {
+        this.nome = nome;
+        this.valor = valor;
+    }
+
     public Bebida(int id, String nome, double valor) {
         this.id = id;
         this.nome = nome;
