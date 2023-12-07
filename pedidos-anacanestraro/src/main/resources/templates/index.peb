@@ -5,5 +5,6 @@
     <a href="/add">Cadastrar Pedido</a>
     <a href="/list">Listar Pedidos</a>
 
+    <a href="/addBebida">Adicionar bebida:</a>
     <a href="/listBebidas">Listar Bebidas</a>
 {% endblock %}    

@@ -24,14 +24,14 @@ public class JDBCBebidaDAO implements BebidaDAO{
     public Resultado<List<Bebida>> listarBebidas() {
       ArrayList<Bebida> bebidas = new ArrayList<>();
       try(Connection con = fabricaConexao.getConnection();){
-        PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_tarefas");
+        PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_bebida");
 
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome");
-                String valor = rs.getString("valor");
+                double valor = rs.getDouble("valor");
 
                 Bebida bebida = new Bebida(id, nome, valor);
 
@@ -43,6 +43,24 @@ public class JDBCBebidaDAO implements BebidaDAO{
             return Resultado.erro("Problema ao fazer seleção!! " + e.getMessage());
         }
       }
+
+    @Override
+    public Resultado<Bebida> addBebida(Bebida bebida) {
+        try {
+            Connection con = fabricaConexao.getConnection();
+
+            PreparedStatement pstm = con.prepareStatement("INSERT INTO oo_bebida (nome,valor) VALUES (?,?)");
+
+            pstm.setString(1, bebida.getNome());
+            pstm.setDouble(2, bebida.getValor());
+
+            pstm.executeUpdate();
+            con.close();
+            return Resultado.sucesso("Bebida cadastrada!", bebida);
+        } catch (Exception e) {
+            return Resultado.erro(e.getMessage());
+        }
+    }
     }
     
 

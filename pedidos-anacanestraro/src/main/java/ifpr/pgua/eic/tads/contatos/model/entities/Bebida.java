@@ -3,9 +3,9 @@ package ifpr.pgua.eic.tads.contatos.model.entities;
 public class Bebida {
     private int id;
     private String nome;
-    private String valor;
+    private double valor;
 
-    public Bebida(int id, String nome, String valor) {
+    public Bebida(int id, String nome, double valor) {
         this.id = id;
         this.nome = nome;
         this.valor = valor;
@@ -27,11 +27,11 @@ public class Bebida {
         this.nome = nome;
     }
 
-    public String getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 

@@ -7,7 +7,7 @@ import com.github.hugoperlin.results.Resultado;
 import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
 
 public interface BebidaRepository {
-
+    Resultado<>
     Resultado<List<Bebida>> listarBebidas();
 
 } 

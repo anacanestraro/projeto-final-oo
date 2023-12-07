@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.github.hugoperlin.results.Resultado;
 
+import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
 import ifpr.pgua.eic.tads.contatos.model.entities.Pedido;
 import ifpr.pgua.eic.tads.contatos.model.repositories.PedidoRepository;
 import io.javalin.http.Context;
@@ -24,7 +25,7 @@ public class AddPedidoController {
 
     public Handler post = (Context ctx)->{
         String observacao = ctx.formParam("observacao");
-        String bebida = ctx.formParam("bebida");
+        Bebida bebida = ctx.formParamAsClass("bebida");
         
         Resultado<Pedido> resultado = repositorio.criarPedido(observacao, bebida);
 

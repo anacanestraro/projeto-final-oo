@@ -11,6 +11,7 @@ import java.util.List;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.tads.contatos.model.FabricaConexoes;
+import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
 import ifpr.pgua.eic.tads.contatos.model.entities.Pedido;
 
 public class JDBCPedidoDAO implements PedidoDAO{
@@ -27,8 +28,9 @@ public class JDBCPedidoDAO implements PedidoDAO{
 
             PreparedStatement pstm = con.prepareStatement("INSERT INTO oo_pedidos(observacao,bebida) VALUES (?,?)");
 
-            pstm.setString(1, pedido.getObservacao());
-            pstm.setObject(2, pedido.getBebida());
+            pstm.setInt(1, pedido.getId());
+            pstm.setString(2, pedido.getObservacao());
+            pstm.setObject(3, pedido.getBebida());
 
             pstm.executeUpdate();
 
@@ -50,7 +52,7 @@ public class JDBCPedidoDAO implements PedidoDAO{
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String observacao = rs.getString("observacao");
-                String bebida = rs.getString("bebida");
+                Bebida bebida = new Bebida(rs.getInt("id"), rs.getString("nome"), rs.getDouble("valor") );
 
                 Pedido pedido = new Pedido(id, observacao, bebida);
 

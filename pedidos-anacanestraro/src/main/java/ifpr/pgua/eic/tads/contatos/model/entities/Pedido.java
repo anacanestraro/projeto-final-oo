@@ -4,16 +4,16 @@ package ifpr.pgua.eic.tads.contatos.model.entities;
 public class Pedido {
     private int id;
     private String observacao;
-    private String bebida;
+    private Bebida bebida;
     
     
-    public Pedido(String observacao, String bebida) {
+    public Pedido(String observacao, Bebida bebida) {
         this.observacao = observacao;
         this.bebida = bebida;
    
     }
 
-    public Pedido(int id, String observacao, String bebida) {
+    public Pedido(int id, String observacao, Bebida bebida) {
         this.id = id;
         this.observacao = observacao;
         this.bebida = bebida;
@@ -36,11 +36,11 @@ public class Pedido {
         this.observacao = observacao;
     }
 
-    public String getBebida() {
+    public Bebida getBebida() {
         return bebida;
     }
 
-    public void setBebida(String bebida) {
+    public void setBebida(Bebida bebida) {
         this.bebida = bebida;
     }
 

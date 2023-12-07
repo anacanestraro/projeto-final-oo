@@ -30,7 +30,7 @@ public class App
         BebidaRepository bebidaRepository = new ImpBebidaRepository(bebidaDAO);
 
         PedidoDAO pedidoDAO = new JDBCPedidoDAO(FabricaConexoes.getInstance());
-        PedidoRepository pedidoRepository = new ImpPedidoRepository(pedidoDAO);
+        PedidoRepository pedidoRepository = new ImpPedidoRepository(pedidoDAO, bebidaDAO);
 
         IndexController indexController = new IndexController();
         AddPedidoController addPedidoController = new AddPedidoController(pedidoRepository);
@@ -43,6 +43,8 @@ public class App
         app.post("/add", addPedidoController.post);
         app.get("/list", listPedidosController.get);
 
+        app.get("/addBebida", addBebidaController.get);
+        app.post("/addBebida", addBebidaController);
         app.get("/listBebidas", listBebidasController.get);
 
         
