@@ -9,8 +9,8 @@ import java.util.List;
 
 import com.github.hugoperlin.results.Resultado;
 
-import ifpr.pgua.eic.tads.contatos.model.FabricaConexoes;
 import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
+import ifpr.pgua.eic.tads.contatos.model.entities.FabricaConexoes;
 import ifpr.pgua.eic.tads.contatos.model.entities.Pedido;
 
 public class JDBCPedidoDAO implements PedidoDAO {
@@ -61,7 +61,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
             con.close();
             return Resultado.sucesso("Pedidos carregadas", pedidos);
         } catch (SQLException e) {
-            return Resultado.erro("Problema ao fazer seleção!! " + e.getMessage());
+            return Resultado.erro(e.getMessage());
         }
     }
 

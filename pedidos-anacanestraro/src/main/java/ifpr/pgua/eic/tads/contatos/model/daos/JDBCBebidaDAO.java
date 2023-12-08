@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.github.hugoperlin.results.Resultado;
-import ifpr.pgua.eic.tads.contatos.model.FabricaConexoes;
 
 import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
+import ifpr.pgua.eic.tads.contatos.model.entities.FabricaConexoes;
 
 public class JDBCBebidaDAO implements BebidaDAO {
 
