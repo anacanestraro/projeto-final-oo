@@ -22,7 +22,6 @@ public class ListBebidasController {
     public Handler get = (Context ctx) ->{
         Resultado<List<Bebida>> resultado = repositorio.listarBebidas();
 
-
         Map<String, Object> model = new HashMap<>();
 
         model.put("resultado", resultado);
@@ -31,6 +30,6 @@ public class ListBebidasController {
 
         }
 
-        ctx.render("templates/listBebidas.peb");
+        ctx.render("templates/listBebidas.peb", model);
     };
 }

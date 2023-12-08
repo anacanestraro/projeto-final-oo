@@ -35,7 +35,7 @@ public class App
         PedidoRepository pedidoRepository = new ImpPedidoRepository(pedidoDAO, bebidaDAO);
 
         IndexController indexController = new IndexController();
-        AddPedidoController addPedidoController = new AddPedidoController(pedidoRepository);
+        AddPedidoController addPedidoController = new AddPedidoController(pedidoRepository, bebidaRepository);
         ListPedidosController listPedidosController = new ListPedidosController(pedidoRepository);
 
         ListBebidasController listBebidasController = new ListBebidasController(bebidaRepository);

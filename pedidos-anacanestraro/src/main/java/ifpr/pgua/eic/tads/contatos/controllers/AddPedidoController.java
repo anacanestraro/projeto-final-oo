@@ -1,7 +1,7 @@
 package ifpr.pgua.eic.tads.contatos.controllers;
 
 import java.util.HashMap;
-
+import java.util.List;
 import java.util.Map;
 
 import com.github.hugoperlin.results.Resultado;
@@ -15,25 +15,38 @@ import io.javalin.http.Handler;
 
 public class AddPedidoController {
     private PedidoRepository repositorioPedido;
+    private BebidaRepository repositorioBebida;
 
-    public AddPedidoController(PedidoRepository repositorioPedido){
+    public AddPedidoController(PedidoRepository repositorioPedido, BebidaRepository repositorioBebida){
         this.repositorioPedido = repositorioPedido;
+        this.repositorioBebida = repositorioBebida;
 
     }
 
     public Handler get = (Context ctx)->{
+         Map<String, Object> model = new HashMap<>();
+        Resultado<List<Bebida>> resultadoBebida = repositorioBebida.listarBebidas();
+
+        model.put("bebidas", resultadoBebida.comoSucesso().getObj());       
+
         ctx.render("templates/add.peb");
     };
 
     public Handler post = (Context ctx)->{
         String observacao = ctx.formParam("observacao");
-        Bebida bebida = ctx.formParam("bebida");
+        String bebidaID = ctx.formParam("bebida");
+
+        Resultado<Bebida> resultadoBebida = repositorioBebida.buscarID(Integer.valueOf(bebidaID));
+
+        Bebida bebida = resultadoBebida.comoSucesso().getObj();
 
         Resultado<Pedido> resultado = repositorioPedido.criarPedido(observacao, bebida);
         
+
         Map<String, Object> model = new HashMap<>();
         model.put("resultado", resultado);
         if(resultado.foiErro()){
+            model.put("bebidaID", Integer.valueOf(bebidaID));
             model.put("observacao", observacao);
             model.put("bebida", bebida);
         }

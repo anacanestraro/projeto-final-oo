@@ -23,7 +23,7 @@ public class AddBebidaCrontroller {
 
     public Handler post = (Context ctx) ->{
         String nome = ctx.formParam("nome");
-        Double valor = Double.parseDouble("valor");
+        Double valor = Double.parseDouble(ctx.formParam("valor"));
 
         Resultado<Bebida> resultado = repositorio.addBebida(nome, valor);
 

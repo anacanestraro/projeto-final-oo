@@ -12,37 +12,13 @@ import ifpr.pgua.eic.tads.contatos.model.FabricaConexoes;
 
 import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
 
-public class JDBCBebidaDAO implements BebidaDAO{
+public class JDBCBebidaDAO implements BebidaDAO {
 
-    private FabricaConexoes fabricaConexao;
+    FabricaConexoes fabricaConexao;
 
     public JDBCBebidaDAO(FabricaConexoes fabricaConexao) {
         this.fabricaConexao = fabricaConexao;
     }
-
-    @Override
-    public Resultado<List<Bebida>> listarBebidas() {
-      ArrayList<Bebida> bebidas = new ArrayList<>();
-      try(Connection con = fabricaConexao.getConnection();){
-        PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_bebida");
-
-            ResultSet rs = pstm.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                double valor = rs.getDouble("valor");
-
-                Bebida bebida = new Bebida(id, nome, valor);
-
-                bebidas.add(bebida);
-            }
-            con.close();
-            return Resultado.sucesso("Bebidas carregadas", bebidas);
-        } catch (SQLException e) {
-            return Resultado.erro("Problema ao fazer seleção!! " + e.getMessage());
-        }
-      }
 
     @Override
     public Resultado<Bebida> addBebida(Bebida bebida) {
@@ -61,6 +37,30 @@ public class JDBCBebidaDAO implements BebidaDAO{
             return Resultado.erro(e.getMessage());
         }
     }
-    }
-    
 
+    @Override
+    public Resultado<List<Bebida>> listarBebidas() {
+        ArrayList<Bebida> bebidas = new ArrayList<>();
+        try {
+            Connection con = fabricaConexao.getConnection();
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_bebida");
+
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                double valor = rs.getDouble("valor");
+
+                Bebida bebida = new Bebida(id, nome, valor);
+
+                bebidas.add(bebida);
+            }
+            con.close();
+            return Resultado.sucesso("Bebidas carregadas", bebidas);
+        } catch (SQLException e) {
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+}
