@@ -47,8 +47,8 @@ public class AddPedidoController {
         model.put("resultado", resultado);
         if(resultado.foiErro()){
             model.put("bebidaID", Integer.valueOf(bebidaID));
-            model.put("observacao", observacao);
-            model.put("bebida", bebida);
+            Resultado<List<Bebida>> ret1 = repositorioBebida.listarBebidas();
+            model.put("bebidas", ret1.comoSucesso().getObj());
         }
 
         ctx.render("templates/add.peb", model);

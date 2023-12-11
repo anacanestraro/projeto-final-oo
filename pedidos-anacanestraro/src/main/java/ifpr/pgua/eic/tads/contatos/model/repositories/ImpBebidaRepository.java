@@ -24,11 +24,15 @@ public class ImpBebidaRepository implements BebidaRepository{
     }
 
     @Override
-    public Resultado<Bebida> addBebida(String nome, double valor) {
+    public Resultado<Bebida> addBebida(String nome, Double valor) {
         if(nome.isBlank()||nome.isEmpty()){
             return Resultado.erro("Nome inválido");
         }
         
+        if(valor.isNaN() || valor<=0){
+            return Resultado.erro("Valor inválido");
+        }
+
         Bebida bebida = new Bebida(nome, valor);
         return dao.addBebida(bebida);
     }

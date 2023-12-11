@@ -12,9 +12,11 @@ import ifpr.pgua.eic.tads.contatos.model.entities.Pedido;
 public class ImpPedidoRepository implements PedidoRepository{
 
     private PedidoDAO dao;
+    private BebidaDAO bebidaDAO;
 
     public ImpPedidoRepository(PedidoDAO dao, BebidaDAO bebidaDAO){
         this.dao = dao;
+        this.bebidaDAO = bebidaDAO;
     }
     @Override
     public Resultado<Pedido> criarPedido(String observacao, Bebida bebida) {
@@ -29,7 +31,19 @@ public class ImpPedidoRepository implements PedidoRepository{
     }
     @Override
     public Resultado<List<Pedido>> listarPedidos() {
-        return dao.listarPedidos();
+        Resultado<List<Pedido>> resultado = dao.listarPedidos();
+        if(resultado.foiSucesso()){
+            List<Pedido> pedidos = resultado.comoSucesso().getObj();
+            for(Pedido p: pedidos){
+                Resultado<Bebida> resul = bebidaDAO.buscarBebida(p);
+                if(resul.foiErro()){
+                    return resul.comoErro();
+                }else{
+                    p.setBebida(resul.comoSucesso().getObj());
+                }
+            }
+        }
+        return resultado;
     }
     
 }

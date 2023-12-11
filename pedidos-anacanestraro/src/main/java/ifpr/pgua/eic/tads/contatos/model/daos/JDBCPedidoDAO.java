@@ -29,7 +29,6 @@ public class JDBCPedidoDAO implements PedidoDAO {
 
             pstm.setInt(1, pedido.getBebida().getId());
             pstm.setString(2, pedido.getObservacao());
-            pstm.setObject(3, pedido.getBebida());
 
             pstm.executeUpdate();
 
@@ -45,7 +44,8 @@ public class JDBCPedidoDAO implements PedidoDAO {
 
         try {
             Connection con = fabricaConexao.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_pedidos inner join oo_bebida on oo_pedidos.id_bebida = oo_bebida.id_bebida \r\n" + "ORDER BY ´oo_pedidos´ . ´id_pedido´ ASC");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_pedidos inner join oo_bebida on oo_pedidos.id_bebida = oo_bebidas.id_bebida\r\n"
+            + "ORDER BY `oo_pedidos`.`id_pedido` ASC");
 
             ResultSet rs = pstm.executeQuery();
 

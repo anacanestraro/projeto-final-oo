@@ -11,6 +11,7 @@ import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
 import ifpr.pgua.eic.tads.contatos.model.entities.FabricaConexoes;
+import ifpr.pgua.eic.tads.contatos.model.entities.Pedido;
 
 public class JDBCBebidaDAO implements BebidaDAO {
 
@@ -60,6 +61,32 @@ public class JDBCBebidaDAO implements BebidaDAO {
             return Resultado.sucesso("Bebidas carregadas", bebidas);
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Resultado<Bebida> buscarBebida(Pedido pedido) {
+        try (Connection con = fabricaConexao.getConnection();) {
+            PreparedStatement pstm = con.prepareStatement(
+                    "SELECT * from oo_bebida inner JOIN oo_pedidos on oo_bebida.id_bebida=oo_pedidos.id_bebida WHERE oo_pedidos.id_pedido=?");
+
+            pstm.setInt(1, pedido.getId());
+
+            ResultSet rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("oo_bebida.id_bebida");
+                String nome = rs.getString("oo_bebida.nome_bebida");
+                Double valor = rs.getDouble("oo_bebida.valor_bebida");
+
+                Bebida bebida = new Bebida(id, nome, valor);
+                return Resultado.sucesso("Bebidas carregadas", bebida);
+
+            }
+            return Resultado.erro("Bebida não encontrada");
+
+        } catch (SQLException e) {
+            return Resultado.erro("Problema ao fazer seleção!! " + e.getMessage());
         }
     }
 
