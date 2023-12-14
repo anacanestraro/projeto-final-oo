@@ -33,7 +33,9 @@ public class JDBCBebidaDAO implements BebidaDAO {
 
             pstm.executeUpdate();
             con.close();
+
             return Resultado.sucesso("Bebida cadastrada!", bebida);
+
         } catch (Exception e) {
             return Resultado.erro(e.getMessage());
         }
@@ -51,14 +53,16 @@ public class JDBCBebidaDAO implements BebidaDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome");
-                double valor = rs.getDouble("valor");
+                Double valor = rs.getDouble("valor");
 
                 Bebida bebida = new Bebida(id, nome, valor);
 
                 bebidas.add(bebida);
             }
+            
             con.close();
             return Resultado.sucesso("Bebidas carregadas", bebidas);
+
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
         }

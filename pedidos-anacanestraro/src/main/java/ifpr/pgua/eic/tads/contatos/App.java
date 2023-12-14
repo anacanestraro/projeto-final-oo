@@ -29,18 +29,21 @@ public class App
 
         BebidaDAO bebidaDAO = new JDBCBebidaDAO(FabricaConexoes.getInstance());
         BebidaRepository bebidaRepository = new ImpBebidaRepository(bebidaDAO);
-        AddBebidaCrontroller addBebidaController = new AddBebidaCrontroller(bebidaRepository);
 
         PedidoDAO pedidoDAO = new JDBCPedidoDAO(FabricaConexoes.getInstance());
         PedidoRepository pedidoRepository = new ImpPedidoRepository(pedidoDAO, bebidaDAO);
 
         IndexController indexController = new IndexController();
+
+        AddBebidaCrontroller addBebidaController = new AddBebidaCrontroller(bebidaRepository);
+        ListBebidasController listBebidasController = new ListBebidasController(bebidaRepository);
+
         AddPedidoController addPedidoController = new AddPedidoController(pedidoRepository, bebidaRepository);
         ListPedidosController listPedidosController = new ListPedidosController(pedidoRepository);
 
-        ListBebidasController listBebidasController = new ListBebidasController(bebidaRepository);
 
         app.get("/", indexController.get);
+        
         app.get("/add", addPedidoController.get);
         app.post("/add", addPedidoController.post);
         app.get("/list", listPedidosController.get);

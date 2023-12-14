@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.github.hugoperlin.results.Resultado;
 
-import ifpr.pgua.eic.tads.contatos.model.entities.Bebida;
 import ifpr.pgua.eic.tads.contatos.model.entities.FabricaConexoes;
 import ifpr.pgua.eic.tads.contatos.model.entities.Pedido;
 
@@ -25,7 +24,7 @@ public class JDBCPedidoDAO implements PedidoDAO {
     public Resultado<Pedido> criarPedido(Pedido pedido) {
         try (Connection con = fabricaConexao.getConnection();) {
 
-            PreparedStatement pstm = con.prepareStatement("INSERT INTO oo_pedidos(observacao,bebida) VALUES (?,?)");
+            PreparedStatement pstm = con.prepareStatement("INSERT INTO oo_pedidos(bebida, observacao) VALUES (?,?)");
 
             pstm.setInt(1, pedido.getBebida().getId());
             pstm.setString(2, pedido.getObservacao());
@@ -44,17 +43,16 @@ public class JDBCPedidoDAO implements PedidoDAO {
 
         try {
             Connection con = fabricaConexao.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_pedidos inner join oo_bebida on oo_pedidos.id_bebida = oo_bebidas.id_bebida\r\n"
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM oo_pedidos inner join oo_bebida on oo_pedidos.bebida = oo_bebidas.id_bebida\r\n"
             + "ORDER BY `oo_pedidos`.`id_pedido` ASC");
 
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("id_pedido");
-                Bebida bebida = new Bebida(rs.getInt("id_bebida"), rs.getString("nome"), rs.getDouble("valor"));
                 String observacao = rs.getString("observacao");
 
-                Pedido pedido = new Pedido(id, observacao, bebida);
+                Pedido pedido = new Pedido(id, observacao);
 
                 pedidos.add(pedido);
             }

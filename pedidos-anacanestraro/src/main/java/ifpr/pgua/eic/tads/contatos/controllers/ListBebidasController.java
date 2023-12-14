@@ -25,9 +25,9 @@ public class ListBebidasController {
         Map<String, Object> model = new HashMap<>();
 
         model.put("resultado", resultado);
+
         if(resultado.foiSucesso()){
             model.put("lista", resultado.comoSucesso().getObj());
-
         }
 
         ctx.render("templates/listBebidas.peb", model);

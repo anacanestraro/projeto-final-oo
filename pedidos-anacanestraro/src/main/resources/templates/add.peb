@@ -7,7 +7,15 @@
 <h1>Adicionar pedido</h1>
 <form method="post" action="/add">
     <label for="bebida">Bebida:</label>
-    <input type="text" id="bebida" name="bebida" value="{{bebida}}"/><br />
+    <select name="bebida" id="bebida" value="{{bebidaId}}">
+        {% for bebida in bebidas%}
+            <option value="{{bebida.id}}" 
+            {% if bebida.id == bebidaId %}
+            selected
+            {% endif %}
+            >{{bebida.nome}}</option>
+        {% endfor %}
+    </select>
     <label for="observacao">Observação:</label>
     <input type="text" id="observacao" name="observacao" value="{{observacao}}"/><br />
 

@@ -18,11 +18,9 @@ public class ImpPedidoRepository implements PedidoRepository{
         this.dao = dao;
         this.bebidaDAO = bebidaDAO;
     }
+
     @Override
     public Resultado<Pedido> criarPedido(String observacao, Bebida bebida) {
-        if(observacao.isBlank() || observacao.isEmpty()){
-            return Resultado.erro("Observacao inválida");
-        }
 
         Pedido pedido = new Pedido(observacao, bebida);
 
@@ -32,10 +30,13 @@ public class ImpPedidoRepository implements PedidoRepository{
     @Override
     public Resultado<List<Pedido>> listarPedidos() {
         Resultado<List<Pedido>> resultado = dao.listarPedidos();
+
         if(resultado.foiSucesso()){
             List<Pedido> pedidos = resultado.comoSucesso().getObj();
+
             for(Pedido p: pedidos){
                 Resultado<Bebida> resul = bebidaDAO.buscarBebida(p);
+                
                 if(resul.foiErro()){
                     return resul.comoErro();
                 }else{

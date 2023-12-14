@@ -26,6 +26,7 @@ public class ListPedidosController {
         Map<String,Object> model = new HashMap<>();
 
         model.put("resultado", resultado);
+        
         if(resultado.foiSucesso()){
             model.put("lista", resultado.comoSucesso().getObj());
         }

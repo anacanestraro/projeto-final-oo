@@ -7,6 +7,11 @@ public class Pedido {
     private Bebida bebida;
     
     
+    public Pedido(int id, String observacao) {
+        this.id = id;
+        this.observacao = observacao;
+    }
+
     public Pedido(String observacao, Bebida bebida) {
         this.observacao = observacao;
         this.bebida = bebida;

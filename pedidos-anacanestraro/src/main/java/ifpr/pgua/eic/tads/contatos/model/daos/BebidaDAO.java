@@ -10,6 +10,6 @@ import ifpr.pgua.eic.tads.contatos.model.entities.Pedido;
 public interface BebidaDAO {
 
     Resultado<Bebida> addBebida(Bebida bebida);
-    Resultado<List<Bebida>> listarBebidas();
     Resultado<Bebida> buscarBebida(Pedido pedido);
+    Resultado<List<Bebida>> listarBebidas();
 }

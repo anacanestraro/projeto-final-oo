@@ -24,12 +24,13 @@ public class AddPedidoController {
     }
 
     public Handler get = (Context ctx)->{
-         Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = new HashMap<>();
+
         Resultado<List<Bebida>> resultadoBebida = repositorioBebida.listarBebidas();
 
         model.put("bebidas", resultadoBebida.comoSucesso().getObj());       
 
-        ctx.render("templates/add.peb");
+        ctx.render("templates/add.peb", model);
     };
 
     public Handler post = (Context ctx)->{
@@ -42,13 +43,14 @@ public class AddPedidoController {
 
         Resultado<Pedido> resultado = repositorioPedido.criarPedido(observacao, bebida);
         
-
         Map<String, Object> model = new HashMap<>();
+
         model.put("resultado", resultado);
+
         if(resultado.foiErro()){
             model.put("bebidaID", Integer.valueOf(bebidaID));
-            Resultado<List<Bebida>> ret1 = repositorioBebida.listarBebidas();
-            model.put("bebidas", ret1.comoSucesso().getObj());
+            Resultado<List<Bebida>> ret = repositorioBebida.listarBebidas();
+            model.put("bebidas", ret.comoSucesso().getObj());
         }
 
         ctx.render("templates/add.peb", model);
